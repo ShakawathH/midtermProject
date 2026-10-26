@@ -568,3 +568,9 @@ def test_loop_level_exception(capsys):
 def test_calculator_repl_modulus(mock_print, mock_input):
     calculator_repl()
     mock_print.assert_any_call("\nResult: 1")
+
+@patch('builtins.input', side_effect=['int_divide', '7', '2', 'exit'])
+@patch('builtins.print')
+def test_calculator_repl_int_divide(mock_print, mock_input):
+    calculator_repl()
+    mock_print.assert_any_call("\nResult: 3")

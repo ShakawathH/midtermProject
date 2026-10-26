@@ -27,7 +27,7 @@ def calculator_repl():
         calc.add_observer(LoggingObserver())
         calc.add_observer(AutoSaveObserver(calc))
 
-        print("Calculator started. Type 'help' for commands.")
+        print(Fore.YELLOW +"Calculator started. Type 'help' for commands.")
 
         while True:
             try:
@@ -37,7 +37,7 @@ def calculator_repl():
                 if command == 'help':
                     # Display available commands
                     print("\nAvailable commands:")
-                    print("  add, subtract, multiply, divide, power, root, modulus - Perform calculations")
+                    print("  add, subtract, multiply, divide, power, root, modulus, int_divide - Perform calculations")
                     print("  history - Show calculation history")
                     print("  clear - Clear calculation history")
                     print("  undo - Undo the last calculation")
@@ -108,17 +108,17 @@ def calculator_repl():
                         print(f"Error loading history: {e}")
                     continue
 
-                if command in ['add', 'subtract', 'multiply', 'divide', 'power', 'root', 'modulus']:
+                if command in ['add', 'subtract', 'multiply', 'divide', 'power', 'root', 'modulus', 'int_divide',]:
                     # Perform the specified arithmetic operation
                     try:
-                        print(Fore.BLUE +"\nEnter numbers (or 'cancel' to abort):")
+                        print("\nEnter numbers (or 'cancel' to abort):")
                         a = input("First number: ")
                         if a.lower() == 'cancel':
-                            print(Fore.RED +"Operation cancelled")
+                            print("Operation cancelled")
                             continue
                         b = input("Second number: ")
                         if b.lower() == 'cancel':
-                            print(Fore.RED +"Operation cancelled")
+                            print("Operation cancelled")
                             continue
 
                         # Create the appropriate operation instance using the Factory pattern
@@ -132,7 +132,7 @@ def calculator_repl():
                         if isinstance(result, Decimal):
                             result = result.normalize()
 
-                        print(Fore.GREEN + f"\nResult: {result}")
+                        print(f"\nResult: {result}")
                     except (ValidationError, OperationError) as e:
                         # Handle known exceptions related to validation or operation errors
                         print(f"Error: {e}")

@@ -67,6 +67,7 @@ class Calculation:
                 else self._raise_invalid_root(x, y)
             ),
             "Modulus": lambda x, y: x % y if y != 0 else self._raise_mod_zero(),
+            "IntegerDivision": lambda x, y: x // y if y != 0 else self._raise_int_div_zero(),
         }
 
         # Retrieve the operation function based on the operation name
@@ -136,11 +137,18 @@ class Calculation:
         }
 
     @staticmethod
-    def _raise_mod_zero():  # pragma: no cover
+    def _raise_mod_zero():  # For Modulus
         """
         Helper method to raise modulus by zero error.
         """
         raise OperationError("Modulus by zero is not allowed")
+
+    @staticmethod
+    def _raise_int_div_zero():  # For Int Division
+        """
+        Helper method to raise integer division by zero error.
+        """
+        raise OperationError("Integer division by zero is not allowed")
 
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> 'Calculation':

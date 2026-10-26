@@ -286,6 +286,43 @@ class Modulus(Operation):
         return a % b
 
 
+class IntegerDivision(Operation):
+    """
+    Integer division operation implementation.
+
+    Divides one number by another and discards the fractional part.
+    """
+
+    def validate_operands(self, a: Decimal, b: Decimal) -> None:
+        """
+        Validate operands, checking for division by zero.
+
+        Args:
+            a (Decimal): Dividend.
+            b (Decimal): Divisor.
+
+        Raises:
+            ValidationError: If the divisor is zero.
+        """
+        super().validate_operands(a, b)
+        if b == 0:
+            raise ValidationError("Integer division by zero is not allowed")
+
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        """
+        Divide a by b, discarding the fractional part.
+
+        Args:
+            a (Decimal): Dividend.
+            b (Decimal): Divisor.
+
+        Returns:
+            Decimal: Whole-number quotient.
+        """
+        self.validate_operands(a, b)
+        return a // b
+
+
 class OperationFactory:
     """
     Factory class for creating operation instances.
@@ -304,6 +341,7 @@ class OperationFactory:
         'power': Power,
         'root': Root,
         'modulus': Modulus,
+        'int_divide': IntegerDivision,
     }
 
     @classmethod
