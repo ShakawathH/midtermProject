@@ -233,3 +233,7 @@ def test_percentage():
 def test_percentage_of_zero():
     with pytest.raises(OperationError, match="Percentage of zero is undefined"):
         Calculation(operation="Percentage", operand1=Decimal("25"), operand2=Decimal("0"))
+
+def test_absolute_difference():
+    calc = Calculation(operation="AbsoluteDifference", operand1=Decimal("3"), operand2=Decimal("10"))
+    assert calc.result == Decimal("7")

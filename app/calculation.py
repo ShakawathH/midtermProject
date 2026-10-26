@@ -69,6 +69,7 @@ class Calculation:
             "Modulus": lambda x, y: x % y if y != 0 else self._raise_mod_zero(),
             "IntegerDivision": lambda x, y: x // y if y != 0 else self._raise_int_div_zero(),
             "Percentage": lambda x, y: (x / y) * 100 if y != 0 else self._raise_percent_zero(),
+            "AbsoluteDifference": lambda x, y: abs(x - y),
         }
 
         # Retrieve the operation function based on the operation name

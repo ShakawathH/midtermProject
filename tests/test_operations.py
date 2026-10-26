@@ -14,6 +14,7 @@ from app.operations import (
     Modulus,
     IntegerDivision,
     Percentage,
+    AbsoluteDifference,
     OperationFactory,
 )
 
@@ -199,7 +200,8 @@ class TestOperationFactory:
             'root': Root,
             'modulus': Modulus,
             'int_divide': IntegerDivision,
-            'percent': Percentage
+            'percent': Percentage,
+            'abs_diff': AbsoluteDifference
         }
 
         for op_name, op_class in operation_map.items():
@@ -293,3 +295,17 @@ class TestPercentage(BaseOperationTest):
             "message": "Percentage of zero is undefined"
         },
     }
+
+class TestAbsoluteDifference(BaseOperationTest):
+    """Test AbsoluteDifference operation."""
+
+    operation_class = AbsoluteDifference
+    valid_test_cases = {
+        "first_larger": {"a": "10", "b": "3", "expected": "7"},
+        "second_larger": {"a": "3", "b": "10", "expected": "7"},
+        "equal_numbers": {"a": "5", "b": "5", "expected": "0"},
+        "negative_numbers": {"a": "-5", "b": "-8", "expected": "3"},
+        "mixed_signs": {"a": "-4", "b": "6", "expected": "10"},
+        "decimals": {"a": "2.5", "b": "7.75", "expected": "5.25"},
+    }
+    invalid_test_cases = {}  # Absolute difference has no invalid cases
