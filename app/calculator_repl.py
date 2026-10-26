@@ -9,6 +9,7 @@ from app.calculator import Calculator
 from app.exceptions import OperationError, ValidationError
 from app.history import AutoSaveObserver, LoggingObserver
 from app.operations import OperationFactory
+from colorama import Fore
 
 
 def calculator_repl():
@@ -110,14 +111,14 @@ def calculator_repl():
                 if command in ['add', 'subtract', 'multiply', 'divide', 'power', 'root', 'modulus']:
                     # Perform the specified arithmetic operation
                     try:
-                        print("\nEnter numbers (or 'cancel' to abort):")
+                        print(Fore.BLUE +"\nEnter numbers (or 'cancel' to abort):")
                         a = input("First number: ")
                         if a.lower() == 'cancel':
-                            print("Operation cancelled")
+                            print(Fore.RED +"Operation cancelled")
                             continue
                         b = input("Second number: ")
                         if b.lower() == 'cancel':
-                            print("Operation cancelled")
+                            print(Fore.RED +"Operation cancelled")
                             continue
 
                         # Create the appropriate operation instance using the Factory pattern
@@ -131,7 +132,7 @@ def calculator_repl():
                         if isinstance(result, Decimal):
                             result = result.normalize()
 
-                        print(f"\nResult: {result}")
+                        print(Fore.GREEN + f"\nResult: {result}")
                     except (ValidationError, OperationError) as e:
                         # Handle known exceptions related to validation or operation errors
                         print(f"Error: {e}")
