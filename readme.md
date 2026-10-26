@@ -2,30 +2,13 @@
 
 ---
 
-# 🧩 1. Install Homebrew (Mac Only)
+# 🧩 Project Description
 
-> Skip this step if you're on Windows.
-
-Homebrew is a package manager for macOS.  
-You’ll use it to easily install Git, Python, Docker, etc.
-
-**Install Homebrew:**
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-**Verify Homebrew:**
-
-```bash
-brew --version
-```
-
-If you see a version number, you're good to go.
+This assignment focuses on building an advanced calculator application with various arithmetic operations, a command-line interface (REPL), and robust error handling. You'll use several design patterns (Factory, Memento, Observer) and implement features like undo/redo, logging, history management, and CI/CD pipelines. Additionally, you'll enhance the application with optional advanced features.
 
 ---
 
-# 🧩 2. Install and Configure Git
+# 🧩 1. Install and Configure Git
 
 ## Install Git
 
@@ -117,7 +100,7 @@ You should see a success message.
 
 ---
 
-# 🧩 3. Clone the Repository
+# 🧩 2. Clone the Repository
 
 Now you can safely clone the course project:
 
@@ -128,7 +111,7 @@ cd <repository-directory>
 
 ---
 
-# 🛠️ 4. Install Python 3.10+
+# 🛠️ 3. Install Python 3.10+
 
 ## Install Python
 
@@ -173,7 +156,7 @@ pip install -r requirements.txt
 
 ---
 
-# 🐳 5. (Optional) Docker Setup
+# 🐳 4. (Optional) Docker Setup
 
 > Skip if Docker isn't used in this module.
 
@@ -196,7 +179,7 @@ docker run -it --rm <image-name>
 
 ---
 
-# 🚀 6. Running the Project
+# 🚀 5. Running the Project
 
 - **Without Docker**:
 
@@ -214,7 +197,7 @@ docker run -it --rm <image-name>
 
 ---
 
-# 📝 7. Submission Instructions
+# 📝 6. Submission Instructions
 
 After finishing your work:
 
@@ -225,6 +208,71 @@ git push origin main
 ```
 
 Then submit the GitHub repository link as instructed.
+
+---
+
+# ⭐ Calculator Commands 
+
+add, subtract, multiply, divide, power, root, modulus, int_divide, percent, abs_diff – Perform calculations.
+history – Display calculation history.
+clear – Clear calculation history.
+undo – Undo the last calculation.
+redo – Redo the last undone calculation.
+save – Manually save calculation history to file using pandas.
+load – Load calculation history from file using pandas.
+help – Display available commands.
+exit – Exit the application gracefully.
+
+---
+
+# ⭐ Running Tests
+
+Running the command:
+
+```bash
+pytest
+```
+Runs a test on the project and checks if each component is functioning properly.
+
+# CI/ CD Testing
+
+To run tests through GitHub Actions, this is required in a tests.yml file:
+
+name: Run Tests on Push or Pull Request to Main
+
+on:
+  push:
+    branches:
+      - main  # Run tests on any push to the main branch
+  pull_request:
+    branches:
+      - main  # Run tests on any pull request to the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Set your desired Python version
+
+      - name: Install dependencies from requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov  # Ensure pytest-cov is installed
+
+      - name: Run tests with pytest and enforce 70% coverage
+        run: |
+          python -X faulthandler -m pytest -v -x
+          pytest --cov=app --cov-fail-under=70
+          pytest --cov=app --cov-report=term-missing
+
 
 ---
 
