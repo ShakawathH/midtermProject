@@ -68,6 +68,7 @@ class Calculation:
             ),
             "Modulus": lambda x, y: x % y if y != 0 else self._raise_mod_zero(),
             "IntegerDivision": lambda x, y: x // y if y != 0 else self._raise_int_div_zero(),
+            "Percentage": lambda x, y: (x / y) * 100 if y != 0 else self._raise_percent_zero(),
         }
 
         # Retrieve the operation function based on the operation name
@@ -149,6 +150,13 @@ class Calculation:
         Helper method to raise integer division by zero error.
         """
         raise OperationError("Integer division by zero is not allowed")
+
+    @staticmethod
+    def _raise_percent_zero():  # For Percentage
+        """
+        Helper method to raise percentage of zero error.
+        """
+        raise OperationError("Percentage of zero is undefined")
 
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> 'Calculation':

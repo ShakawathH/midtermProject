@@ -224,3 +224,12 @@ def test_integer_division():
 def test_integer_division_by_zero():
     with pytest.raises(OperationError, match="Integer division by zero is not allowed"):
         Calculation(operation="IntegerDivision", operand1=Decimal("7"), operand2=Decimal("0"))
+
+def test_percentage():
+    calc = Calculation(operation="Percentage", operand1=Decimal("25"), operand2=Decimal("200"))
+    assert calc.result == Decimal("12.5")
+
+
+def test_percentage_of_zero():
+    with pytest.raises(OperationError, match="Percentage of zero is undefined"):
+        Calculation(operation="Percentage", operand1=Decimal("25"), operand2=Decimal("0"))

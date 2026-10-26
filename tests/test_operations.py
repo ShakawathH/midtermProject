@@ -13,6 +13,7 @@ from app.operations import (
     Root,
     Modulus,
     IntegerDivision,
+    Percentage,
     OperationFactory,
 )
 
@@ -198,6 +199,7 @@ class TestOperationFactory:
             'root': Root,
             'modulus': Modulus,
             'int_divide': IntegerDivision,
+            'percent': Percentage
         }
 
         for op_name, op_class in operation_map.items():
@@ -268,5 +270,26 @@ class TestIntegerDivision(BaseOperationTest):
             "b": "0",
             "error": ValidationError,
             "message": "Integer division by zero is not allowed"
+        },
+    }
+
+class TestPercentage(BaseOperationTest):
+    """Test Percentage operation."""
+
+    operation_class = Percentage
+    valid_test_cases = {
+        "simple": {"a": "25", "b": "200", "expected": "12.5"},
+        "hundred_percent": {"a": "50", "b": "50", "expected": "100"},
+        "over_hundred": {"a": "150", "b": "100", "expected": "150"},
+        "zero_part": {"a": "0", "b": "5", "expected": "0"},
+        "negative_part": {"a": "-1", "b": "4", "expected": "-25"},
+        "decimals": {"a": "1.5", "b": "6", "expected": "25"},
+    }
+    invalid_test_cases = {
+        "zero_whole": {
+            "a": "5",
+            "b": "0",
+            "error": ValidationError,
+            "message": "Percentage of zero is undefined"
         },
     }

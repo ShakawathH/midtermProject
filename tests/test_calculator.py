@@ -574,3 +574,9 @@ def test_calculator_repl_modulus(mock_print, mock_input):
 def test_calculator_repl_int_divide(mock_print, mock_input):
     calculator_repl()
     mock_print.assert_any_call("\nResult: 3")
+
+@patch('builtins.input', side_effect=['percent', '50', '200', 'exit'])
+@patch('builtins.print')
+def test_calculator_repl_percent(mock_print, mock_input):
+    calculator_repl()
+    mock_print.assert_any_call("\nResult: 25")
