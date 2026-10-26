@@ -65,7 +65,8 @@ class Calculation:
                 Decimal(pow(float(x), 1 / float(y))) 
                 if x >= 0 and y != 0 
                 else self._raise_invalid_root(x, y)
-            )
+            ),
+            "Modulus": lambda x, y: x % y if y != 0 else self._raise_mod_zero(),
         }
 
         # Retrieve the operation function based on the operation name
@@ -133,6 +134,13 @@ class Calculation:
             'result': str(self.result),
             'timestamp': self.timestamp.isoformat()
         }
+
+    @staticmethod
+    def _raise_mod_zero():  # pragma: no cover
+        """
+        Helper method to raise modulus by zero error.
+        """
+        raise OperationError("Modulus by zero is not allowed")
 
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> 'Calculation':

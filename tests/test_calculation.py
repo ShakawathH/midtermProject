@@ -206,3 +206,13 @@ def test_power_overflow_raises_operation_error():
 def test_multiplication_overflow_raises_operation_error():
     with pytest.raises(OperationError, match="Calculation failed"):
         Calculation("Multiplication", Decimal("1E999999999"), Decimal("1E999999999"))
+
+def test_modulus():
+    calc = Calculation(operation="Modulus", operand1=Decimal("10"), operand2=Decimal("3"))
+    assert calc.result == Decimal("1")
+
+
+def test_modulus_by_zero():
+    with pytest.raises(OperationError, match="Modulus by zero is not allowed"):
+        Calculation(operation="Modulus", operand1=Decimal("10"), operand2=Decimal("0"))
+

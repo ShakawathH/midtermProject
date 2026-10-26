@@ -562,3 +562,9 @@ def test_loop_level_exception(capsys):
                side_effect=Exception("history broke")):
         calculator_repl()
     assert "Error: history broke" in capsys.readouterr().out
+
+@patch('builtins.input', side_effect=['modulus', '10', '3', 'exit'])
+@patch('builtins.print')
+def test_calculator_repl_modulus(mock_print, mock_input):
+    calculator_repl()
+    mock_print.assert_any_call("\nResult: 1")

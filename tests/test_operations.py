@@ -11,6 +11,7 @@ from app.operations import (
     Division,
     Power,
     Root,
+    Modulus,
     OperationFactory,
 )
 
@@ -194,6 +195,7 @@ class TestOperationFactory:
             'divide': Division,
             'power': Power,
             'root': Root,
+            'modulus': Modulus,
         }
 
         for op_name, op_class in operation_map.items():
@@ -225,3 +227,23 @@ class TestOperationFactory:
 
         with pytest.raises(TypeError, match="Operation class must inherit"):
             OperationFactory.register_operation("invalid", InvalidOperation)
+
+class TestModulus(BaseOperationTest):
+    """Test Modulus operation."""
+
+    operation_class = Modulus
+    valid_test_cases = {
+        "positive_numbers": {"a": "10", "b": "3", "expected": "1"},
+        "no_remainder": {"a": "9", "b": "3", "expected": "0"},
+        "decimals": {"a": "5.5", "b": "2", "expected": "1.5"},
+        "dividend_smaller": {"a": "2", "b": "5", "expected": "2"},
+        "negative_dividend": {"a": "-10", "b": "3", "expected": "-1"},
+    }
+    invalid_test_cases = {
+        "modulus_by_zero": {
+            "a": "5",
+            "b": "0",
+            "error": ValidationError,
+            "message": "Modulus by zero is not allowed"
+        },
+    }
