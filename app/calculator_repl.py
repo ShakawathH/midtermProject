@@ -32,7 +32,7 @@ def calculator_repl():
         while True:
             try:
                 # Prompt the user for a command
-                command = input("\nEnter command: ").lower().strip()
+                command = input(Fore.BLUE +"\nEnter command: ").lower().strip()
 
                 if command == 'help':
                     # Display available commands
@@ -42,9 +42,9 @@ def calculator_repl():
                     print("  clear - Clear calculation history")
                     print("  undo - Undo the last calculation")
                     print("  redo - Redo the last undone calculation")
-                    print("  save - Save calculation history to file")
+                    print(Fore.GREEN +"  save - Save calculation history to file")
                     print("  load - Load calculation history from file")
-                    print("  exit - Exit the calculator")
+                    print(Fore.RED +"  exit - Exit the calculator")
                     continue
 
                 if command == 'exit':
